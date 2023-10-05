@@ -67,4 +67,8 @@ const registerUser = expressAsync(async(req, res) => {
     console.log(`New user saved: ${user}`)
 })
 
-module.exports = {loginUser, registerUser}
+const currentUser = expressAsync(async (req, res) => {
+    console.log(`Current user is: ${req.body}`)
+})
+
+module.exports = {loginUser, registerUser, currentUser}
