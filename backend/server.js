@@ -1,9 +1,11 @@
 const express = require("express")
 const dotenv = require("dotenv")
 const connection = require("./database/dbCnx")
+const cookieParser = require("cookie-parser")
 
 const app  = express()
 app.use(express.json())
+app.use(cookieParser())
 dotenv.config()
 connection()
 

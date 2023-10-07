@@ -3,11 +3,12 @@ const expressAsync = require("express-async-handler")
 const User = require("../models/userModel")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
-
+const cookieParser = require("cookie-parser")
 
 const loginUser = expressAsync(async(req, res) => {
     const {username, password} = req.body
     
+
     // Check for user existence
     const user = await User.findOne({username})
     console.log("User found in DB: ", user) 
@@ -27,6 +28,9 @@ const loginUser = expressAsync(async(req, res) => {
             // Success message
             console.log(`Login successful! \nDetails of logged in user:\n${username, password}\nAccess Token: ${accessToken}`)
     
+            // saving the accesstoken as a cookie
+            res.cookie("loginToken", accessToken, {maxAge: 600000})
+            console.log("cookie set.")
             res.status(200).json({accessToken})
         }else{
             res.status(400)
