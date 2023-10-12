@@ -24,14 +24,7 @@ const validate = expressAsync( async(req, res, next) => {
         console.log("Login first!")
         res.status(400)
         res.json({Error: "Login First"})
-    }
-    
-    
-
-
-    
+    }  
 })
-
-
 
 module.exports = validate

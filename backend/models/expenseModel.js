@@ -1,9 +1,13 @@
 const mongoose = require("mongoose")
 
 const expenseSchema = mongoose.Schema({
+    user_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
+    },
     date: {
         type: Date,
-        required: true
+        // required: true
     },
     amount: {
         type: Number,
