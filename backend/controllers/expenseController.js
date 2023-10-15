@@ -2,7 +2,10 @@ const asyncHandler = require("express-async-handler")
 const Expense = require("../models/expenseModel")
 
 const addTxn = asyncHandler(async(req, res) => {
-    let {amount, payee, description, date} = req.body
+    let {amount, payee, description} = req.body
+    const date = new Date()
+    formattedDate = date.toISOString().slice(0, 10)
+    console.log("Date is: ", date.toISOString().slice(0, 10))
     const userId = req.params.id
 
     if(!amount || !payee){
@@ -10,7 +13,7 @@ const addTxn = asyncHandler(async(req, res) => {
         throw new Error("Empty data given")
     }
 
-    const txn = new Expense({user_id: userId, amount, payee, description, date})
+    const txn = new Expense({user_id: userId, amount, payee, description, formattedDate})
     await txn.save()
 
     console.log(`New transaction saved. The credentials of the transaction are: \n ${amount}\nTo: ${payee}\n${description}\n${date}`)
