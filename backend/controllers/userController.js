@@ -67,7 +67,7 @@ const registerUser = expressAsync(async(req, res) => {
     // Creating new user
     const user = new User({username, email, password: hashedPassword})
     await user.save()
-    res.status(200).json({Registered: user})
+    res.status(200).json({user})
     console.log(`New user saved: ${user}`)
 })
 

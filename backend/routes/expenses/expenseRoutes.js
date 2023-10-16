@@ -1,9 +1,10 @@
 const express = require("express")
 const router = express.Router()
 const {addTxn, deleteTxn, viewTxn} = require("../../controllers/expenseController")
+const validate = require("../../middleware/validateToken")
 
-router.route("/:id/expense").post(addTxn)
-router.route("/:id/expense").get(viewTxn)
-router.route("/:id/expense/delete").post(deleteTxn)
+router.route("/expense").post(validate, addTxn)
+router.route("/expense").get(validate, viewTxn)
+router.route("/expense/delete").post(validate, deleteTxn)
 
 module.exports = router

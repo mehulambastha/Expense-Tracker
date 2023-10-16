@@ -16,7 +16,6 @@ const validate = expressAsync( async(req, res, next) => {
                 req.decoded = decoded.data
                 console.log(`Token recieved: ${accessToken}`)
                 console.log(`DATA recieved from token: ${decoded.data}`)
-                res.json(decoded)
                 next()
             }
         })

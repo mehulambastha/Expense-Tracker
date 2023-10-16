@@ -6,14 +6,14 @@ const addTxn = asyncHandler(async(req, res) => {
     const date = new Date()
     formattedDate = date.toISOString().slice(0, 10)
     console.log("Date is: ", date.toISOString().slice(0, 10))
-    const userId = req.params.id
+    const userId = req.decoded.id
 
     if(!amount || !payee){
         res.status(400)
         throw new Error("Empty data given")
     }
 
-    const txn = new Expense({user_id: userId, amount, payee, description, formattedDate})
+    const txn = new Expense({user_id: userId, amount, payee, description, date: formattedDate})
     await txn.save()
 
     console.log(`New transaction saved. The credentials of the transaction are: \n ${amount}\nTo: ${payee}\n${description}\n${date}`)
@@ -33,13 +33,13 @@ const deleteTxn = asyncHandler(async(req, res) => {
 })
 
 const viewTxn = asyncHandler(async(req, res) => {
-    const id = req.params.id
+    const id = req.decoded.id
 
     const expenses = await Expense.find({user_id: id})
 
     console.log(expenses)
 
-    res.status(200).json({msg: `Data recieved: ${expenses}`})
+    res.status(200).json({expenses})
 })
 
 module.exports = {addTxn, deleteTxn, viewTxn}
