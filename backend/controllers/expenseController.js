@@ -1,23 +1,38 @@
 const asyncHandler = require("express-async-handler")
 const Expense = require("../models/expenseModel")
+const User = require("../models/userModel")
 
 const addTxn = asyncHandler(async(req, res) => {
     let {amount, payee, description} = req.body
     const date = new Date()
     formattedDate = date.toISOString().slice(0, 10)
-    console.log("Date is: ", date.toISOString().slice(0, 10))
+    console.log("Date is: ", formattedDate)
     const userId = req.decoded.id
 
     if(!amount || !payee){
         res.status(400)
         throw new Error("Empty data given")
     }
+    
+    // Deducting the balance
+    const user = await User.findById(userId)
 
-    const txn = new Expense({user_id: userId, amount, payee, description, date: formattedDate})
-    await txn.save()
+    if (user.balance - amount >= 0) {
+        user.balance = user.balance - amount
+        const newUserDataAfterBalanceReduction = await User.findByIdAndUpdate(req.decoded.id, user)
+    
+        console.log(newUserDataAfterBalanceReduction)
+    
+        const txn = new Expense({user_id: userId, amount, payee, description, date: formattedDate})
+        await txn.save()
+        console.log(`New transaction saved. The credentials of the transaction are: \n ${amount}\nTo: ${payee}\n${description}\n${date}`)
+        res.status(201).json({msg: "Data recieved."})    
 
-    console.log(`New transaction saved. The credentials of the transaction are: \n ${amount}\nTo: ${payee}\n${description}\n${date}`)
-    res.status(201).json({msg: "Data recieved."})
+}else{
+    res.status(400).json({Error:"Shortage of funds!"})
+}
+
+
 
 })
 

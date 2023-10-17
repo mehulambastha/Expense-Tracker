@@ -44,7 +44,7 @@ const loginUser = expressAsync(async(req, res) => {
 })
 
 const registerUser = expressAsync(async(req, res) => {
-    const {username, email, password} = req.body
+    const {username, email, password, balance} = req.body
     
     // Check all fields
     if(!username || !email || !password) {
@@ -65,14 +65,15 @@ const registerUser = expressAsync(async(req, res) => {
     const salt = await bcrypt.genSalt(15)
     const hashedPassword = await bcrypt.hash(password, salt)
     // Creating new user
-    const user = new User({username, email, password: hashedPassword})
+    const user = new User({username, email, password: hashedPassword, balance})
     await user.save()
     res.status(200).json({user})
     console.log(`New user saved: ${user}`)
 })
 
 const currentUser = expressAsync(async (req, res) => {
-    console.log(`Current user is: ${req.body}`)
+    const userFull = await User.findById(req.decoded.id)
+    res.status(200).json(userFull)
 })
 
 const updateUser = expressAsync(async(req, res) => {
@@ -82,4 +83,16 @@ const updateUser = expressAsync(async(req, res) => {
     res.status(201).json(user)
 })
 
-module.exports = {loginUser, registerUser, currentUser, updateUser}
+const addMoney = expressAsync( async(req, res) => {
+    const {amount} = req.body
+
+    const user = await User.findById(req.decoded.id)
+    user.balance = user.balance + amount
+
+    const updatedUser = await User.findByIdAndUpdate(req.decoded.id, user)
+
+    res.status(201).json(updatedUser)
+    console.log(updatedUser)
+})
+
+module.exports = {loginUser, registerUser, currentUser, updateUser, addMoney}

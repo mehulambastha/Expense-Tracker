@@ -16,7 +16,7 @@ const userSchema = mongoose.Schema({
     },
     balance: {
         type: Number,
-        required: [true, "Enter balance"]
+        required: [true, "Enter initial balance"]
     }
 }, {
     timestamps: true
