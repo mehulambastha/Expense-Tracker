@@ -75,4 +75,11 @@ const currentUser = expressAsync(async (req, res) => {
     console.log(`Current user is: ${req.body}`)
 })
 
-module.exports = {loginUser, registerUser, currentUser}
+const updateUser = expressAsync(async(req, res) => {
+    const {userId} = req.body
+
+    const user = await User.findByIdAndUpdate(userId, req.body)
+    res.status(201).json(user)
+})
+
+module.exports = {loginUser, registerUser, currentUser, updateUser}

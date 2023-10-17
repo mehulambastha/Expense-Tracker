@@ -14,6 +14,10 @@ const userSchema = mongoose.Schema({
         type: String,
         required: [true, "Enter password"]
     },
+    balance: {
+        type: Number,
+        required: [true, "Enter balance"]
+    }
 }, {
     timestamps: true
 })

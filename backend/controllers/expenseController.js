@@ -22,7 +22,7 @@ const addTxn = asyncHandler(async(req, res) => {
 })
 
 const deleteTxn = asyncHandler(async(req, res) => {
-    const userId = req.params.id
+    const userId = req.decoded.id
     const {idToDelete} = req.body
     console.log(`ID to delete: ${idToDelete}`)
 
@@ -42,4 +42,11 @@ const viewTxn = asyncHandler(async(req, res) => {
     res.status(200).json({expenses})
 })
 
-module.exports = {addTxn, deleteTxn, viewTxn}
+const updateTxn = asyncHandler(async (req, res) => {
+    const {_id} = req.body
+    console.log(_id)
+    const expense = await Expense.findByIdAndUpdate(_id, req.body)
+    res.status(201).json({expense})
+})
+
+module.exports = {addTxn, deleteTxn, viewTxn, updateTxn}
