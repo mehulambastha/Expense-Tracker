@@ -47,7 +47,7 @@ const registerUser = expressAsync(async(req, res) => {
     const {username, email, password, balance} = req.body
     
     // Check all fields
-    if(!username || !email || !password) {
+    if(!username || !email || !password || !balance) {
         res.status(400)
         throw new Error("Enter all fields")
     }
@@ -76,6 +76,12 @@ const currentUser = expressAsync(async (req, res) => {
     res.status(200).json(userFull)
 })
 
+const allUsers = expressAsync(async(req, res) => {
+    const users = await User.find()
+    res.status(200).json(users)
+    console.log(users)
+})
+
 const updateUser = expressAsync(async(req, res) => {
     const {userId} = req.body
 
@@ -95,4 +101,4 @@ const addMoney = expressAsync( async(req, res) => {
     console.log(updatedUser)
 })
 
-module.exports = {loginUser, registerUser, currentUser, updateUser, addMoney}
+module.exports = {loginUser, registerUser, currentUser, updateUser, addMoney, allUsers}
