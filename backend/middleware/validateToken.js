@@ -5,7 +5,7 @@ const validate = expressAsync( async(req, res, next) => {
     console.log("All cookies", req.cookies)
     const accessToken = req.cookies.loginToken
 
-    console.log("Accss token retrieved from cookies: ", accessToken)
+    console.log("Access token retrieved from cookies: ", accessToken)
     // const headers = req.headers["authorization"]
     if (accessToken) {        
         jwt.verify(accessToken, process.env.PVT_KEY, (err, decoded) => {

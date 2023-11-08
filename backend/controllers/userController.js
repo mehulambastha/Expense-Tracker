@@ -23,7 +23,7 @@ const loginUser = expressAsync(async(req, res) => {
                     password: user.password,
                     id: user._id
                 }
-            }, process.env.PVT_KEY, {expiresIn: "60m"})
+            }, process.env.PVT_KEY, {expiresIn: "240m"})
             
             // Success message
             console.log(`Login successful! \nDetails of logged in user:\n${username, password}\nAccess Token: ${accessToken}`)
@@ -34,7 +34,7 @@ const loginUser = expressAsync(async(req, res) => {
             res.status(200).json({accessToken})
         }else{
             res.status(400)
-            throw new Error(" incorrect details!")
+            throw new Error("incorrect details!")
         }
     }else{
         res.status(400)

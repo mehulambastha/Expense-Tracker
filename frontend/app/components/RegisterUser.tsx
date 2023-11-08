@@ -2,7 +2,19 @@
 import { useRouter } from 'next/navigation'
 import { ChangeEvent, FormEvent , useState} from 'react'
 
-const LoginForm = () => {
+// because you have to define even the type of props in typescript
+// props interface has the name of the parameters and their types
+interface Props{
+  registerHandler: Function;
+}
+
+// the component
+// passing registerHandler prop so uplift state to the main page and tell the app
+// that user registration was successful and load back the login form
+// couldn't redirect instead because both login and register are just different 
+// components loading on the same URL so no redirect
+// They are conditionally rendered depending on a "register" state on the basis of whether the user clicked on the JOIN NOW link and changed the register state to true
+const RegisterUser = ({registerHandler}: Props) => {
   const router = useRouter()
 
   // Defining the states for input values.
@@ -36,6 +48,8 @@ const LoginForm = () => {
       console.log(formData)
       router.refresh()
       router.push("/")
+      // Change the "register" state to false so the app loads back the login form, because they are condtionally rendered depending on the "register" state.
+      registerHandler(false)
     }
 
   }
@@ -48,6 +62,7 @@ const LoginForm = () => {
           type="text" 
           placeholder="Username"
           name="username" 
+          // have to define the type of event, which a "change" event of an "HTMLInputElement"
           onChange={(e: ChangeEvent<HTMLInputElement>)=>{
             setusername(e.currentTarget.value)
           }} 
@@ -94,11 +109,11 @@ const LoginForm = () => {
           className="input input-bordered w-full max-w-xs" 
         />
 
-        <button className="btn btn-info p-5 m-5" type="submit" disabled={isLoading}>
+        <button className="btn btn-info m-5" type="submit" disabled={isLoading}>
           {isLoading ? <span>Registering...</span> : <span>Proceed &#8594;</span>}
         </button>
       </form>
   )
 }
 
-export default LoginForm
+export default RegisterUser

@@ -23,7 +23,7 @@ const nextConfig = {
         destination: "http://localhost:5001/user/addMoney"
       },
       {
-        source: "/api/user/exoense",
+        source: "/api/user/expense",
         destination: "http://localhost:5001/user/expense"
       },
       {
