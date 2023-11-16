@@ -8,7 +8,7 @@ const cookieParser = require("cookie-parser")
 const loginUser = expressAsync(async(req, res) => {
     const {username, password} = req.body
     
-
+    console.log("entered username: ", username)
     // Check for user existence
     const user = await User.findOne({username})
     console.log("User found in DB: ", user) 
@@ -23,13 +23,13 @@ const loginUser = expressAsync(async(req, res) => {
                     password: user.password,
                     id: user._id
                 }
-            }, process.env.PVT_KEY, {expiresIn: "240m"})
+            }, process.env.PVT_KEY, {expiresIn: "1h"})
             
             // Success message
             console.log(`Login successful! \nDetails of logged in user:\n${username, password}\nAccess Token: ${accessToken}`)
     
             // saving the accesstoken as a cookie
-            res.cookie("loginToken", accessToken, {maxAge: 600000})
+            res.cookie("loginToken", accessToken, {maxAge: 1000*60*60})
             console.log("cookie set.")
             res.status(200).json({accessToken})
         }else{

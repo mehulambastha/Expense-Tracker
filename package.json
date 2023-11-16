@@ -12,5 +12,8 @@
   },
   "scripts": {
     "serve": "nodemon server.js"
+  },
+  "devDependencies": {
+    "daisyui": "^4.1.0"
   }
 }
