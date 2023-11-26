@@ -1,14 +1,15 @@
 "use client"
 import React, { useState, useEffect } from 'react'
-import ExpenseTracker from './components/ExpenseTracker'
+import Dashboard from './components/Dashboard'
+import styles from './page.module.css'
 
-const Dashboard = () => {
+const DashboardBody = () => {
   const [isLoaded, setisLoaded] = useState(false)
 
   return (
-    <>
-    <div className="bg-slate-800 p-3 rounded-2xl fixed h-5/6 m-5 left-0 top-1/2">
-    <ul className="my-auto left-0 menu bg-base-200 rounded-xl">      
+    <div className={styles.dashboard}>
+    <div className="bg-slate-800 p-3 m-5 fixed self-center rounded-2xl left-5">
+    {/* <ul className="my-auto left-0 menu bg-base-200 rounded-xl">      
       <li>
         <a className="tooltip tooltip-right" data-tip="Home">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
@@ -39,13 +40,11 @@ const Dashboard = () => {
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
         </a>
       </li>
-    </ul>
+    </ul> */}
+    </div>    
+    <Dashboard />
     </div>
-    
-    
-    <ExpenseTracker />
-    </>
   )
 }
 
-export default Dashboard
+export default DashboardBody

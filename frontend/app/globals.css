@@ -24,7 +24,6 @@ body {
   color: rgb(var(--foreground-rgb));
   padding: 3rem;
   min-height: 100%;
-  /* display: flex; */
   background: radial-gradient(
     circle at 4.3% 10.7%,
     rgb(138, 118, 249) 13.6%,

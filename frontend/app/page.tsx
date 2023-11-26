@@ -22,7 +22,6 @@ export default function Home() {
           {register ? <RegisterUser registerHandler = {handleRegister}/> : <LoginUser />}          
         </div>
       </div>
-      {/* <figure className="px-10 m-auto rounded"><Image className='m-auto rounded-lg' width={400} height={450} src="/images/loginImage.jpg" alt="Album"/></figure> */}
     </div>
   )
 }
